@@ -1,0 +1,80 @@
+// Step 1: Create the Collection
+db.srh_players.insertMany([
+  {
+    player_id: 1,
+    name: "Abhishek Sharma",
+    role: "All-Rounder",
+    nationality: "India",
+    matches: 45,
+    runs: 987,
+    wickets: 21
+  },
+  {
+    player_id: 2,
+    name: "Aiden Markram",
+    role: "Batsman",
+    nationality: "South Africa",
+    matches: 38,
+    runs: 1203,
+    wickets: 5
+  },
+  {
+    player_id: 3,
+    name: "Bhuvneshwar Kumar",
+    role: "Bowler",
+    nationality: "India",
+    matches: 110,
+    runs: 423,
+    wickets: 133
+  },
+  {
+    player_id: 4,
+    name: "Rahul Tripathi",
+    role: "Batsman",
+    nationality: "India",
+    matches: 65,
+    runs: 1625,
+    wickets: 0
+  },
+  {
+    player_id: 5,
+    name: "Umran Malik",
+    role: "Bowler",
+    nationality: "India",
+    matches: 25,
+    runs: 75,
+    wickets: 41
+  }
+])
+
+// Step 2: Five Unique MongoDB Queries
+
+// 1. Find all batsmen in the SRH team.
+
+db.srh_players.find({ role: "Batsman" })
+
+
+// 2. Find players who have scored more than 1000 runs.
+
+db.srh_players.find({ runs: { $gt: 1000 } })
+
+
+// 3. Get the name and wickets of bowlers with more than 30 wickets.
+
+db.srh_players.find(
+  { role: "Bowler", wickets: { $gt: 30 } },
+  { name: 1, wickets: 1, _id: 0 }
+)
+
+
+// 4. Count how many Indian players are in the SRH squad.
+
+db.srh_players.countDocuments({ nationality: "India" })
+
+
+// 5. Update runs for a player (e.g., Abhishek Sharma scored 50 more runs).
+
+db.srh_players.updateOne(
+  { name: "Abhishek Sharma" },
+  { $inc: { runs: 50 } }
+)
